@@ -24,6 +24,10 @@ class Command(BaseCommand):
     def check_for_updates(self, story, existing_story):
         if story['stats']['views'] != existing_story.views:
             self.save_story(story)
+        if story['title'] != existing_story.title:
+            self.save_story(story)
+        if story['thumbnail'] != existing_story.thumbnail:
+            self.save_story(story)
         print "checking for updates"
 
 
