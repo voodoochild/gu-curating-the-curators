@@ -1,7 +1,7 @@
 body {
     background-color: #222;
     color: #dedede;
-    font: 400 16px/100% Arial, sans-serif;
+    font: 400 16px/100% "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 a, a:visited, a:active, a:hover {
@@ -37,12 +37,8 @@ a, a:visited, a:active, a:hover {
 .feed header h1 {
     color: #444;
     font-size: 20px;
-    margin-bottom: 2%;
+    margin: 0 0 2% 20px;
     text-transform: uppercase;
-}
-
-.feed ol {
-
 }
 
 .feed li {
