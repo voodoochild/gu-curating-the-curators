@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Dashboard | Curating the Curators</title>
+    <meta charset="utf-8">
+    <title>{% block title %}Dashboard | Curating the Curators{% endblock title %}</title>
+    {% block stylesheets %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/reset.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/curate.css">
+    {% endblock stylesheets %}
 </head>
 <body>
-    <h1>Curating the Curators</h1>
+    {% block content %}{% endblock content %}
+    {% block scripts %}
+    <script src="{{ STATIC_URL }}js/lib/jquery-1.7.1.min.js"></script>
+    {% endblock scripts %}
 </body>
 </html>

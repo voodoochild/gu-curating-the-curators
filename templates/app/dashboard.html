@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Curating the Curators</h1>
+<p>This is the dashboard. It isn't shiny yet, but it will be.</p>
+{% endblock content %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ STATIC_URL }}js/curate.js"></script>
+{% endblock scripts %}
