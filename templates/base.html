@@ -9,7 +9,9 @@
     {% endblock stylesheets %}
 </head>
 <body>
-    {% block content %}{% endblock content %}
+    <div role="main">
+        {% block content %}{% endblock content %}
+    </div>
     {% block scripts %}
     <script src="{{ STATIC_URL }}js/lib/jquery-1.7.1.min.js"></script>
     {% endblock scripts %}
