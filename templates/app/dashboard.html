@@ -1,8 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Curating the Curators</h1>
-<p>This is the dashboard. It isn't shiny yet, but it will be.</p>
+<h1 role="banner">Curating the Curators</h1>
+
+<section class="feed">
+    <h1>Storify &mdash; Popular</h1>
+    <ol>
+        <li data-key="4f29bb7a0421b36e076522ef">
+            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
+                <h2>Egyptian football riots</h2>
+                <p>Views: 45678</p>
+            </a>
+        </li>
+    </ol>
+</section>
+
 {% endblock content %}
 
 {% block scripts %}
