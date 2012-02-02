@@ -1,3 +1,4 @@
+import datetime
 import requests
 import json
 from django.core.management.base import BaseCommand, CommandError
@@ -19,9 +20,27 @@ class Command(BaseCommand):
             raise CommandError("Storify API didn't return any results")
 
         for story in stories:
+            #print story['title']
             """
             1. Check to see if we know about this already.
+            """
+            try:
+                existing_story = Story.objects.get(key = story['sid'])
+            except Story.DoesNotExist:
+               # print "no story found"
+                print story['sid']
+                new_story = Story.objects.create(key = story['sid'], title = story['title'], published = datetime.datetime(2012,02,02,12,12),
+                                                 description = story['description'], source = "Storify", permalink = story['permalink'],
+                                                 thumbnail = story['thumbnail'], views = story['stats']['views'])
+                new_story.save()
 
+
+
+
+
+
+
+            """
             2. If we do, look to see if any of the fields have changed.
 
             3. If they have, create a new Story object.
