@@ -1,0 +1,61 @@
+body {
+    background-color: #222;
+    color: #dedede;
+    font: 400 16px/100% Arial, sans-serif;
+}
+
+a, a:visited, a:active, a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+[role="banner"] {
+    color: #333;
+    font-size: 36px;
+    margin-bottom: 2%;
+    text-transform: uppercase;
+}
+
+[role="main"] {
+    margin: 2%;
+}
+
+.feed {
+    float: left;
+    margin-right: 4%;
+    width: 30%;
+}
+
+.feed:last-child {
+    margin-right: 0;
+}
+
+.feed header {
+    margin-bottom: 5px;
+}
+
+.feed header h1 {
+    color: #444;
+    font-size: 20px;
+    margin-bottom: 2%;
+    text-transform: uppercase;
+}
+
+.feed ol {
+
+}
+
+.feed li {
+    background-color: #333;
+    margin-bottom: 1%;
+    overflow: hidden;
+}
+
+.feed li:hover {
+    box-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+
+.feed li h2 {
+    background-color: rgba(0,0,0,.4);
+    padding: 5%;
+}
