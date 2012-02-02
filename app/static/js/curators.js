@@ -48,7 +48,11 @@ Curators.Feeds = (function() {
      * Update all subscribed feeds, one after the other.
      */
     var updateFeeds = function() {
+        // loop through all subscribed feeds
 
+            // check to see if a feed has a timer running
+
+                // if it doesn't, start a timer to run every 60 seconds
     };
 
     return {
