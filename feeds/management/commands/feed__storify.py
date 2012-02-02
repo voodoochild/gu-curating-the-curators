@@ -1,10 +1,35 @@
+import datetime
+from time import mktime
 import requests
 import json
+import time
 from django.core.management.base import BaseCommand, CommandError
 from feeds.models import Story
 
 
 class Command(BaseCommand):
+
+    def save_story(self, story):
+        print story['sid']
+        pubdatestring = story['date']['published']
+        timestamp = time.strptime(pubdatestring[:19], '%Y-%m-%dT%H:%M:%S')
+        pubdate = datetime.datetime.fromtimestamp(mktime(timestamp))
+        print pubdate
+        new_story = Story.objects.create(key = story['sid'], title = story['title'], published = pubdate,
+                                         description = story['description'], source = "Storify", permalink = story['permalink'],
+                                         thumbnail = story['thumbnail'], views = story['stats']['views'])
+        new_story.save()
+
+
+    def check_for_updates(self, story, existing_story):
+        if story['stats']['views'] != existing_story.views:
+            self.save_story(story)
+        if story['title'] != existing_story.title:
+            self.save_story(story)
+        if story['thumbnail'] != existing_story.thumbnail:
+            self.save_story(story)
+        print "checking for updates"
+
 
     def handle(self, *args, **options):
         """Connect to the Storify API, retrieve popular stories, and store."""
@@ -19,9 +44,18 @@ class Command(BaseCommand):
             raise CommandError("Storify API didn't return any results")
 
         for story in stories:
+            #print story['title']
             """
             1. Check to see if we know about this already.
+            """
+            try:
+                existing_story = Story.objects.filter(key = story['sid']).order_by('-timestamp')[0]
+                self.check_for_updates(story, existing_story)
+            except IndexError:
+                self.save_story(story)
 
+
+            """
             2. If we do, look to see if any of the fields have changed.
 
             3. If they have, create a new Story object.
@@ -33,3 +67,6 @@ class Command(BaseCommand):
             love of all that is good and holy, refactor this to not be PURE EVIL.
             """
             pass
+
+
+
