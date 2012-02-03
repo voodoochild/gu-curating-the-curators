@@ -21,7 +21,6 @@ class Command(BaseCommand):
 
 
     def check_for_updates(self, story, existing_story):
-        print story
         if story['stats']['views'] != existing_story.views:
             self.save_storify_story(story)
             existing_story.latest = False
@@ -87,7 +86,7 @@ class Command(BaseCommand):
 
     def fetch_from_content_api(self):
         """Connect to the content API, retrieve popular stories, and store."""
-        r = requests.get('http://content.guardianapis.com/search?page-size=10&format=json&show-fields=all')
+        r = requests.get('http://content.guardianapis.com/search?page-size=%d&format=json&show-fields=all' % settings.STORIES_PER_FEED)
 
         if r.status_code != 200:
             raise CommandError('content API returned a %d status code' % r.status_code)
@@ -104,7 +103,6 @@ class Command(BaseCommand):
                 self.save_content_api_story(story)
 
     def save_content_api_story(self, story):
-        print story['sectionId']
         try:
             thumbnail =  story['fields']['thumbnail']
         except KeyError:
