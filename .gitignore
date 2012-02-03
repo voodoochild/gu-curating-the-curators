@@ -1,3 +1,14 @@
 *.pyc
 .DS_Store
 db
+/gu-curating-the-curators.iml
+/.idea/compiler.xml
+/.idea/copyright/profiles_settings.xml
+/.idea/encodings.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/.name
+/.idea/scopes/scope_settings.xml
+/.idea/uiDesigner.xml
+/.idea/vcs.xml
+/.idea/workspace.xml
