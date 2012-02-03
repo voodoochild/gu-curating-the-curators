@@ -75,7 +75,6 @@ class Command(BaseCommand):
         for story in stories:
             try:
                 existing_story = Story.objects.get(key = story['_id'], latest = True)
-                self.check_for_updates(story, existing_story)
             except Story.DoesNotExist:
                 self.save_tweetminster_story(story)
 
@@ -86,8 +85,39 @@ class Command(BaseCommand):
         new_story.save()
 
 
+    def fetch_from_content_api(self):
+        """Connect to the content API, retrieve popular stories, and store."""
+        r = requests.get('http://content.guardianapis.com/search?page-size=10&format=json&show-fields=all')
+
+        if r.status_code != 200:
+            raise CommandError('content API returned a %d status code' % r.status_code)
+
+        stories = json.loads(r.text)['response']['results']
+
+        if len(stories) == 0:
+            raise CommandError("content API didn't return any results")
+
+        for story in stories:
+            try:
+                existing_story = Story.objects.get(key = story['id'], latest = True, source='ContentAPI')
+            except Story.DoesNotExist:
+                self.save_content_api_story(story)
+
+    def save_content_api_story(self, story):
+        print story['sectionId']
+        try:
+            thumbnail =  story['fields']['thumbnail']
+        except KeyError:
+            thumbnail = ''
+
+        new_story = Story.objects.create(key = story['id'], title = story['webTitle'],
+                                         description = story['fields']['trailText'], source = "ContentAPI", permalink = story['webUrl'],
+                                         latest=True, thumbnail=thumbnail)
+        new_story.save()
+
 
     def handle(self, *args, **options):
         self.fetch_from_storify()
         self.fetch_from_tweetminster()
+        self.fetch_from_content_api()
 
