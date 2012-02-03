@@ -86,7 +86,7 @@ class Command(BaseCommand):
 
     def fetch_from_content_api(self):
         """Connect to the content API, retrieve popular stories, and store."""
-        r = requests.get('http://content.guardianapis.com/search?page-size=%d&format=json&show-fields=all' % settings.STORIES_PER_FEED)
+        r = requests.get('http://content.guardianapis.com/search?tag=sport&page-size=%d&format=json&show-fields=all' % settings.STORIES_PER_FEED)
 
         if r.status_code != 200:
             raise CommandError('content API returned a %d status code' % r.status_code)
