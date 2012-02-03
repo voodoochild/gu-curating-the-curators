@@ -44,3 +44,23 @@ def tweetminster_dummy_data(request):
     }
     return HttpResponse(json.dumps(data, encoding='utf-8'),
                         content_type='application/json; charset=utf-8')
+
+
+def contentapi_dummy_data(request):
+    storyjson = []
+    stories = Story.objects.filter(latest=True, source='ContentAPI')[:settings.STORIES_PER_FEED]
+
+    for story in stories:
+        storyjson.append({
+            'key': story.key,
+            'title': story.title,
+            'thumbnail': story.thumbnail,
+            'permalink': story.permalink,
+        },)
+
+    random.shuffle(storyjson)
+    data = {
+        'stories': storyjson
+    }
+    return HttpResponse(json.dumps(data, encoding='utf-8'),
+                        content_type='application/json; charset=utf-8')
