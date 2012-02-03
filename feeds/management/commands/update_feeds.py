@@ -78,15 +78,21 @@ class Command(BaseCommand):
                 self.save_tweetminster_story(story)
 
     def save_tweetminster_story(self, story):
+        try:
+            thumbnail =  story['embed'][0]['thumbnail_url']
+        except KeyError:
+            thumbnail = ''
+        print thumbnail
+
         new_story = Story.objects.create(key = story['_id'], title = story['title'],
                                          description = story['description'], source = "Tweetminster", permalink = story['uri'],
-                                         latest=True)
+                                         latest=True, thumbnail=thumbnail)
         new_story.save()
 
 
     def fetch_from_content_api(self):
         """Connect to the content API, retrieve popular stories, and store."""
-        r = requests.get('http://content.guardianapis.com/search?page-size=%d&format=json&show-fields=all' % settings.STORIES_PER_FEED)
+        r = requests.get('http://content.guardianapis.com/search?tag=sport&page-size=%d&format=json&show-fields=all' % settings.STORIES_PER_FEED)
 
         if r.status_code != 200:
             raise CommandError('content API returned a %d status code' % r.status_code)

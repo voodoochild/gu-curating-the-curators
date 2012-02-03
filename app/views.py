@@ -4,7 +4,7 @@ from feeds.models import Story
 
 def dashboard(request):
     """Dashboard view."""
-    stories = Story.objects.filter(latest=True, source='Storify')[:settings.STORIES_PER_FEED]
+    stories = Story.objects.filter(latest=True, source='Storify').order_by('-timestamp')[:settings.STORIES_PER_FEED]
     storyjson = []
     for story in stories:
         storyjson.append({
@@ -20,7 +20,7 @@ def dashboard(request):
 
     })
 
-    tweetminster_stories = Story.objects.filter(latest=True, source='Tweetminster')[:settings.STORIES_PER_FEED]
+    tweetminster_stories = Story.objects.filter(latest=True, source='Tweetminster').order_by('-timestamp')[:settings.STORIES_PER_FEED]
     tweetjson = []
     for tweetstory in tweetminster_stories:
         tweetjson.append({
@@ -35,7 +35,7 @@ def dashboard(request):
         'stories': tweetjson
     })
 
-    contentapi_stories = Story.objects.filter(latest=True, source='ContentAPI')[:settings.STORIES_PER_FEED]
+    contentapi_stories = Story.objects.filter(latest=True, source='ContentAPI').order_by('-timestamp')[:settings.STORIES_PER_FEED]
     contentapijson = []
     for contentapi_story in contentapi_stories:
         contentapijson.append({
