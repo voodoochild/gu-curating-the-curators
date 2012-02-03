@@ -12,9 +12,9 @@
 </header>
 {% for feed in feeds %}
 {% if feed.title and feed.stories %}
-<section class="feed" data-feed="{{ feed.title }}">
+<section class="feed" data-feed="{{ feed.identifier }}">
     <header>
-        <h1>{{ feed.title }}</h1>
+        <h1>{{ feed.title|safe }}</h1>
     </header>
     <ol>
         {% for story in feed.stories %}

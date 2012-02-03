@@ -50,6 +50,8 @@ h1 {
 .feed li {
     background-color: rgba(0,0,0,.3);
     background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: "Open Sans", Arial, sans-serif;
     height: 90px;
     margin-bottom: 3%;

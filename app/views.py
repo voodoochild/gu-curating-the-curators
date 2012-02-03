@@ -4,9 +4,9 @@ from feeds.models import Story
 
 def dashboard(request):
     """Dashboard view."""
-    stories = Story.objects.filter(latest=True, source='Storify').order_by('-timestamp')[:settings.STORIES_PER_FEED]
+    stories = Story.objects.filter(latest=True, source='Storify').order_by('-timestamp')
     storyjson = []
-    for story in stories:
+    for story in stories[:settings.STORIES_PER_FEED]:
         storyjson.append({
             'key': story.key,
             'title': story.title,
@@ -15,14 +15,15 @@ def dashboard(request):
      },)
     feeds = []
     feeds.append({
-        'title': 'Storify',
+        'identifier': 'Storify',
+        'title': 'Storify &mdash; Popular',
         'stories': storyjson
 
     })
 
-    tweetminster_stories = Story.objects.filter(latest=True, source='Tweetminster').order_by('-timestamp')[:settings.STORIES_PER_FEED]
+    tweetminster_stories = Story.objects.filter(latest=True, source='Tweetminster').order_by('-timestamp')
     tweetjson = []
-    for tweetstory in tweetminster_stories:
+    for tweetstory in tweetminster_stories[:settings.STORIES_PER_FEED]:
         tweetjson.append({
             'key': tweetstory.key,
             'title': tweetstory.title,
@@ -31,13 +32,14 @@ def dashboard(request):
         },)
 
     feeds.append({
-        'title': 'Tweetminster',
+        'identifier': 'Tweetminster',
+        'title': 'Tweetminster &mdash; Latest',
         'stories': tweetjson
     })
 
-    contentapi_stories = Story.objects.filter(latest=True, source='ContentAPI').order_by('-timestamp')[:settings.STORIES_PER_FEED]
+    contentapi_stories = Story.objects.filter(latest=True, source='ContentAPI').order_by('-timestamp')
     contentapijson = []
-    for contentapi_story in contentapi_stories:
+    for contentapi_story in contentapi_stories[:settings.STORIES_PER_FEED]:
         contentapijson.append({
             'key': contentapi_story.key,
             'title': contentapi_story.title,
@@ -46,7 +48,8 @@ def dashboard(request):
         },)
 
     feeds.append({
-        'title': 'ContentAPI',
+        'identifier': 'ContentAPI',
+        'title': 'Sport from The Guardian',
         'stories': contentapijson
     })
 
