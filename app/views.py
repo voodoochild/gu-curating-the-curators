@@ -35,4 +35,21 @@ def dashboard(request):
         'stories': tweetjson
     })
 
+
+    contentapi_stories = Story.objects.filter(latest=True, source='ContentAPI')[:settings.STORIES_PER_FEED]
+    contentapijson = []
+    for contentapi_story in contentapi_stories:
+        contentapijson.append({
+            'key': contentapi_story.key,
+            'title': contentapi_story.title,
+            'thumbnail': contentapi_story.thumbnail,
+            'permalink': contentapi_story.permalink
+        },)
+
+    feeds.append({
+        'title': 'ContentAPI',
+        'stories': contentapijson
+    })
+
+
     return render(request, 'app/dashboard.html', {'feeds': feeds})
