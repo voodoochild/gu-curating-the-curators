@@ -18,10 +18,7 @@ def storify_dummy_data(request):
         },)
 
     random.shuffle(storyjson)
-
-    data = {
-        'stories': storyjson
-    }
+    data = {'stories': storyjson}
     return HttpResponse(json.dumps(data, encoding='utf-8'),
                         content_type='application/json; charset=utf-8')
 
@@ -39,9 +36,7 @@ def tweetminster_dummy_data(request):
         },)
 
     random.shuffle(storyjson)
-    data = {
-        'stories': storyjson
-    }
+    data = {'stories': storyjson}
     return HttpResponse(json.dumps(data, encoding='utf-8'),
                         content_type='application/json; charset=utf-8')
 
@@ -59,8 +54,6 @@ def contentapi_dummy_data(request):
         },)
 
     random.shuffle(storyjson)
-    data = {
-        'stories': storyjson
-    }
+    data = {'stories': storyjson}
     return HttpResponse(json.dumps(data, encoding='utf-8'),
                         content_type='application/json; charset=utf-8')

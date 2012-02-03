@@ -93,4 +93,4 @@ INSTALLED_APPS = (
     'feeds',
 )
 
-STORIES_PER_FEED = 6
+STORIES_PER_FEED = 5

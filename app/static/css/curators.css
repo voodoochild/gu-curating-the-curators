@@ -1,5 +1,5 @@
 body {
-    background-color: #222;
+    background: #222 url(/static/img/tactile_noise.gif) repeat;
     color: #dedede;
     font: 400 16px/100% "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -14,15 +14,15 @@ h1 {
 }
 
 [role="banner"] {
-    color: orange;
+    color: #55b705;
     font-size: 36px;
     font-weight: 900;
-    margin-bottom: 2%;
+    margin: 3% 0;
     text-transform: lowercase;
 }
 
 [role="banner"] .light {
-    color: beige;
+    color: #fff;
     font-weight: 400;
 }
 
@@ -44,11 +44,11 @@ h1 {
 .feed header h1 {
     color: #999;
     font-size: 20px;
-    margin-bottom: 2%;
+    margin-bottom: 5%;
 }
 
 .feed li {
-    background-color: #333;
+    background-color: rgba(0,0,0,.3);
     background-position: 50% 50%;
     font-family: "Open Sans", Arial, sans-serif;
     height: 90px;
@@ -68,9 +68,10 @@ h1 {
 
 .feed li h2 {
     background-color: rgba(0,0,0,.75);
+    max-width: 90%;
     padding: 2%;
     position: absolute;
-    left: 0; top: 10%;
+    left: 0; top: 15%;
 }
 
 .ajax-loader {

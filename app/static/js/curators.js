@@ -34,7 +34,8 @@ Curators.Storify = (function() {
 
 
 Curators.Tweetminster = (function() {
-    var tmpl = '<li data-key="%key%">' +
+    var tmpl = '<li data-key="%key%" ' +
+                'style="background-image:url(%thumbnail%);">' +
                 '<a href="%permalink%"><h2>%title%</h2></a></li>';
 
     /**
@@ -52,6 +53,39 @@ Curators.Tweetminster = (function() {
      */
     var renderStory = function(story) {
         return tmpl.replace('%key%', story['key'])
+                   .replace('%thumbnail%', story['thumbnail'])
+                   .replace('%permalink%', story['permalink'])
+                   .replace('%title%', story['title']);
+    };
+
+    return {
+        'getData': getData,
+        'renderStory': renderStory
+    };
+})();
+
+
+Curators.ContentAPI = (function() {
+    var tmpl = '<li data-key="%key%" ' +
+                'style="background-image:url(%thumbnail%);">' +
+                '<a href="%permalink%"><h2>%title%</h2></a></li>';
+
+    /**
+     * Get latest Guardian Sport stories from the database.
+     */
+    var getData = function(callback) {
+        $.ajax({
+            url: '/contentapi-dummy-data/',
+            success: callback
+        });
+    };
+
+    /**
+     * Render the supplied story to a string using the template.
+     */
+    var renderStory = function(story) {
+        return tmpl.replace('%key%', story['key'])
+                   .replace('%thumbnail%', story['thumbnail'])
                    .replace('%permalink%', story['permalink'])
                    .replace('%title%', story['title']);
     };
@@ -73,7 +107,7 @@ Curators.Feeds = (function() {
      * be subscribed to. At the moment that's just Storify.
      */
     var availableFeeds = function() {
-        return ['Storify','Tweetminster'];
+        return ['Storify', 'Tweetminster', 'ContentAPI'];
     };
 
     /**
@@ -137,5 +171,6 @@ Curators.Feeds = (function() {
 $(document).ready(function() {
     Curators.Feeds.addFeed('Storify');
     Curators.Feeds.addFeed('Tweetminster');
+    Curators.Feeds.addFeed('ContentAPI');
     Curators.Feeds.startUpdates();
 });
