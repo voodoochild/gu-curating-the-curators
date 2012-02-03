@@ -15,17 +15,27 @@ class Command(BaseCommand):
         pubdate = datetime.datetime.fromtimestamp(mktime(timestamp))
         new_story = Story.objects.create(key = story['sid'], title = story['title'], published = pubdate,
                                          description = story['description'], source = "Storify", permalink = story['permalink'],
-                                         thumbnail = story['thumbnail'], views = story['stats']['views'])
+                                         thumbnail = story['thumbnail'], views = story['stats']['views'],
+                                         latest=True)
         new_story.save()
 
 
     def check_for_updates(self, story, existing_story):
         if story['stats']['views'] != existing_story.views:
             self.save_story(story)
+            print '[%s] views changed from %d to %d' % (story['sid'], existing_story.views, story['stats']['views'])
+            existing_story.latest = False
+            existing_story.save()
         if story['title'] != existing_story.title:
             self.save_story(story)
+            print '[%s] title changed' % story['sid']
+            existing_story.latest = False
+            existing_story.save()
         if story['thumbnail'] != existing_story.thumbnail:
             self.save_story(story)
+            print '[%s] thumbnail changed' % story['sid']
+            existing_story.latest = False
+            existing_story.save()
 
 
     def handle(self, *args, **options):

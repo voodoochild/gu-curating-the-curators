@@ -15,3 +15,4 @@ class Story(models.Model):
     thumbnail = models.CharField(blank=True, max_length=255, default="")
     views = models.IntegerField(null=True)
     searchterm = models.CharField(blank=True, max_length=255, default="")
+    latest = models.BooleanField(default=False)
