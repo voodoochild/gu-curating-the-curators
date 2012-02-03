@@ -35,7 +35,6 @@ def dashboard(request):
         'stories': tweetjson
     })
 
-
     contentapi_stories = Story.objects.filter(latest=True, source='ContentAPI')[:settings.STORIES_PER_FEED]
     contentapijson = []
     for contentapi_story in contentapi_stories:
@@ -50,6 +49,5 @@ def dashboard(request):
         'title': 'ContentAPI',
         'stories': contentapijson
     })
-
 
     return render(request, 'app/dashboard.html', {'feeds': feeds})
