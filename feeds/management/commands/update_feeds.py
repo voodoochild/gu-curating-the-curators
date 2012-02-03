@@ -1,9 +1,9 @@
-import datetime
-from time import mktime
 import requests
 import json
 import time
+from datetime import datetime
 from django.core.management.base import BaseCommand, CommandError
+from django.conf import settings
 from feeds.models import Story
 
 
@@ -12,7 +12,7 @@ class Command(BaseCommand):
     def save_storify_story(self, story):
         pubdatestring = story['date']['published']
         timestamp = time.strptime(pubdatestring[:19], '%Y-%m-%dT%H:%M:%S')
-        pubdate = datetime.datetime.fromtimestamp(mktime(timestamp))
+        pubdate = datetime.fromtimestamp(time.mktime(timestamp))
         new_story = Story.objects.create(key = story['sid'], title = story['title'], published = pubdate,
                                          description = story['description'], source = "Storify", permalink = story['permalink'],
                                          thumbnail = story['thumbnail'], views = story['stats']['views'],
@@ -21,19 +21,17 @@ class Command(BaseCommand):
 
 
     def check_for_updates(self, story, existing_story):
+        print story
         if story['stats']['views'] != existing_story.views:
             self.save_storify_story(story)
-            print '[%s] views changed from %d to %d' % (story['sid'], existing_story.views, story['stats']['views'])
             existing_story.latest = False
             existing_story.save()
         if story['title'] != existing_story.title:
             self.save_storify_story(story)
-            print '[%s] title changed' % story['sid']
             existing_story.latest = False
             existing_story.save()
         if story['thumbnail'] != existing_story.thumbnail:
             self.save_storify_story(story)
-            print '[%s] thumbnail changed' % story['sid']
             existing_story.latest = False
             existing_story.save()
 
@@ -41,8 +39,7 @@ class Command(BaseCommand):
 
     def fetch_from_storify(self):
         """Connect to the Storify API, retrieve popular stories, and store."""
-        r = requests.get('http://api.storify.com/v1/stories/browse/popular?per_page=10')
-
+        r = requests.get('http://api.storify.com/v1/stories/browse/popular?per_page=%d' % settings.STORIES_PER_FEED)
         if r.status_code != 200:
             raise CommandError('Storify API returned a %d status code' % r.status_code)
 
@@ -65,16 +62,12 @@ class Command(BaseCommand):
 
     def fetch_from_tweetminster(self):
         """Connect to the Storify API, retrieve popular stories, and store."""
-        r = requests.get('http://tracking.tweetminster.co.uk/partner/api/metrics.json?channel=4e6decbf209fcbaf8e34eaf6&interval=daily&metric=links&limit=10')
+        r = requests.get('http://tracking.tweetminster.co.uk/partner/api/metrics.json?channel=4e6decbf209fcbaf8e34eaf6&interval=daily&metric=links&limit=%d' % settings.STORIES_PER_FEED)
 
         if r.status_code != 200:
             raise CommandError('Tweetminster API returned a %d status code' % r.status_code)
 
-        #ustr_to_load = unicode(r.text, 'latin-1')
-        #foo = r.text.encode('latin-1')
-        stories = json.loads(r.text, encoding = 'latin-1')['links']
-
-        print stories
+        stories = json.loads(r.text, encoding='latin-1')['links']
 
         if len(stories) == 0:
             raise CommandError("Tweetminster API didn't return any results")
@@ -87,7 +80,6 @@ class Command(BaseCommand):
                 self.save_tweetminster_story(story)
 
     def save_tweetminster_story(self, story):
-        print story['domain']
         new_story = Story.objects.create(key = story['_id'], title = story['title'],
                                          description = story['description'], source = "Tweetminster", permalink = story['uri'],
                                          latest=True)

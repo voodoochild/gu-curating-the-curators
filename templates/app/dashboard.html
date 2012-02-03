@@ -1,18 +1,23 @@
 {% extends 'base.html' %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
+{{ super() }}
+{% endblock stylesheets %}
+
 {% block content %}
 <header role="banner">
     <h1>Curating the Curators</h1>
 </header>
 {% for feed in feeds %}
 {% if feed.title and feed.stories %}
-<section class="feed">
+<section class="feed" data-feed="{{ feed.title }}">
     <header>
         <h1>{{ feed.title }}</h1>
     </header>
     <ol>
         {% for story in feed.stories %}
-        <li data-key="{{ story.key }}" style="background-image:url({{ story.thumbnail }});">
+        <li data-key="{{ story.key }}"{% if story.thumbnail %}style="background-image:url({{ story.thumbnail }});{% endif %}">
             <a href="{{ story.permalink }}">
                 <h2>{{ story.title }}</h2>
             </a>
