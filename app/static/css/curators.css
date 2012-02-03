@@ -9,11 +9,21 @@ a, a:visited, a:active, a:hover {
     text-decoration: none;
 }
 
+h1 {
+    font-family: Merriweather, serif;
+}
+
 [role="banner"] {
-    color: #333;
+    color: orange;
     font-size: 36px;
+    font-weight: 900;
     margin-bottom: 2%;
-    text-transform: uppercase;
+    text-transform: lowercase;
+}
+
+[role="banner"] .light {
+    color: beige;
+    font-weight: 400;
 }
 
 [role="main"] {
@@ -32,14 +42,14 @@ a, a:visited, a:active, a:hover {
 }
 
 .feed header h1 {
-    color: #555;
+    color: #999;
     font-size: 20px;
     margin-bottom: 2%;
-    text-transform: uppercase;
 }
 
 .feed li {
     background-color: #333;
+    background-position: 50% 50%;
     font-family: "Open Sans", Arial, sans-serif;
     height: 90px;
     margin-bottom: 3%;
