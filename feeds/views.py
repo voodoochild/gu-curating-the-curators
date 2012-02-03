@@ -5,7 +5,7 @@ from feeds.models import Story
 
 def storify_dummy_data(request):
     storyjson = []
-    stories = Story.objects.filter(latest = True)
+    stories = Story.objects.filter(latest = True, source = 'Storify')
 
     for story in stories:
         storyjson.append({
