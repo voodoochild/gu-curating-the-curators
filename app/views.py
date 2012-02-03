@@ -1,43 +1,24 @@
 from django.shortcuts import render
+from feeds.models import Story
 
 def dashboard(request):
     """Dashboard view."""
+    stories = Story.objects.filter(latest = True)
+    storyjson = []
+    for story in stories:
+        storyjson.append({
+            'key': story.key,
+            'title': story.title,
+            'thumbnail': story.thumbnail,
+            'permalink': story.permalink
+     },)
     feeds = []
     feeds.append({
         'title': 'Storify',
-        'stories': [
-            {
-                'key': 'first_item',
-                'title': 'First item',
-                'thumbnail': 'http://p.twimg.com/AkmwZP8CQAI8vXL.jpg',
-                'permalink': 'http://storify.com/curious_scribe/egyptian-football-riots'
-            },
-            {
-                'key': 'second_item',
-                'title': 'Second item',
-                'thumbnail': 'http://p.twimg.com/AkmwZP8CQAI8vXL.jpg',
-                'permalink': 'http://storify.com/curious_scribe/egyptian-football-riots'
-            },
-            {
-                'key': 'third_item',
-                'title': 'Third item',
-                'thumbnail': 'http://p.twimg.com/AkmwZP8CQAI8vXL.jpg',
-                'permalink': 'http://storify.com/curious_scribe/egyptian-football-riots'
-            },
-            {
-                'key': 'fourth_item',
-                'title': 'Fourth item',
-                'thumbnail': 'http://p.twimg.com/AkmwZP8CQAI8vXL.jpg',
-                'permalink': 'http://storify.com/curious_scribe/egyptian-football-riots'
-            },
-            {
-                'key': 'fifth_item',
-                'title': 'Fifth item',
-                'thumbnail': 'http://p.twimg.com/AkmwZP8CQAI8vXL.jpg',
-                'permalink': 'http://storify.com/curious_scribe/egyptian-football-riots'
-            }
-        ]
+        'stories': storyjson
+
     })
+
 
     context = {
         'feeds': feeds
