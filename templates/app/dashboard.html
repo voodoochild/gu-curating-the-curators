@@ -2,12 +2,13 @@
 
 {% block stylesheets %}
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Merriweather:900,400">
 {{ super() }}
 {% endblock stylesheets %}
 
 {% block content %}
 <header role="banner">
-    <h1>Curating the Curators</h1>
+    <h1><span class="light">Curating the</span> Curators</h1>
 </header>
 {% for feed in feeds %}
 {% if feed.title and feed.stories %}
@@ -17,7 +18,7 @@
     </header>
     <ol>
         {% for story in feed.stories %}
-        <li data-key="{{ story.key }}"{% if story.thumbnail %}style="background-image:url({{ story.thumbnail }});{% endif %}">
+        <li data-key="{{ story.key }}" style="background-image:url({% if story.thumbnail %}{{ story.thumbnail }}{% endif %});">
             <a href="{{ story.permalink }}">
                 <h2>{{ story.title }}</h2>
             </a>
