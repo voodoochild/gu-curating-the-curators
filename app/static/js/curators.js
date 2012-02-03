@@ -2,19 +2,33 @@ var Curators = Curators || {};
 
 
 Curators.Storify = (function() {
-    var api = 'http://api.storify.com/v1/stories/browse/popular?per_page=10';
+    var tmpl = '<li data-key="%key%" ' +
+                'style="background-image:url(%thumbnail%);">' +
+                '<a href="%permalink%"><h2>%title%</h2></a></li>';
 
-    var getJSON = function(callback) {
+    /**
+     * Get latest Storify stories from the database.
+     */
+    var getData = function(callback) {
         $.ajax({
-            api: api,
-            success: function(data) {
-                callback(data);
-            }
+            url: '/storify-dummy-data/',
+            success: callback
         });
     };
 
+    /**
+     * Render the supplied story to a string using the template.
+     */
+    var renderStory = function(story) {
+        return tmpl.replace('%key%', story['key'])
+                   .replace('%thumbnail%', story['thumbnail'])
+                   .replace('%permalink%', story['permalink'])
+                   .replace('%title%', story['title']);
+    };
+
     return {
-        'getJSON': getJSON
+        'getData': getData,
+        'renderStory': renderStory
     };
 })();
 
@@ -29,7 +43,7 @@ Curators.Feeds = (function() {
      * be subscribed to. At the moment that's just Storify.
      */
     var availableFeeds = function() {
-        return ['storify'];
+        return ['Storify'];
     };
 
     /**
@@ -39,7 +53,7 @@ Curators.Feeds = (function() {
     var addFeed = function(feed) {
         if (-1 !== availableFeeds().indexOf(feed)) {
             subscribed_feeds.push(feed);
-            return true;
+            updateFeeds();
         }
         return false;
     };
@@ -48,21 +62,39 @@ Curators.Feeds = (function() {
      * Update all subscribed feeds, one after the other.
      */
     var updateFeeds = function() {
-        // loop through all subscribed feeds
+        var ajax_gif = '<span class="ajax-loader">Refreshing stories</span>';
 
-            // check to see if a feed has a timer running
+        $.each(subscribed_feeds, function(i, feed) {
+            var $feed = $('[data-feed="' + feed + '"]');
+            $feed.find('header').append(ajax_gif);
+            
+            Curators[feed].getData(function(data) {
+                var $stories = $feed.find('ol li');
+                var new_stories = '';
 
-                // if it doesn't, start a timer to run every 60 seconds
+                $.each(data['stories'], function(i, story) {
+                    new_stories += Curators[feed].renderStory(story);
+                });
+
+                var $new_stories = $(new_stories);
+                $feed.find('ol').prepend($new_stories.hide());
+                $stories.remove();
+                $new_stories.show();
+            });
+            
+            $feed.find('header .ajax-loader').remove();
+        });
     };
 
     return {
         'availableFeeds': availableFeeds,
-        'addFeed': addFeed
+        'addFeed': addFeed,
+        'updateFeeds': updateFeeds
     };
 
 })();
 
 
 $(document).ready(function() {
-    Curators.Feeds.addFeed('storify');
+    Curators.Feeds.addFeed('Storify');
 });

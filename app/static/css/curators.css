@@ -1,0 +1,75 @@
+body {
+    background-color: #222;
+    color: #dedede;
+    font: 400 16px/100% "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a, a:visited, a:active, a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+[role="banner"] {
+    color: #333;
+    font-size: 36px;
+    margin-bottom: 2%;
+    text-transform: uppercase;
+}
+
+[role="main"] {
+    margin: 2%;
+}
+
+.feed {
+    float: left;
+    margin-right: 2%;
+    position: relative;
+    width: 30%;
+}
+
+.feed header {
+    margin-bottom: 5px;
+}
+
+.feed header h1 {
+    color: #555;
+    font-size: 20px;
+    margin-bottom: 2%;
+    text-transform: uppercase;
+}
+
+.feed li {
+    background-color: #333;
+    font-family: "Open Sans", Arial, sans-serif;
+    height: 90px;
+    margin-bottom: 3%;
+    position: relative;
+}
+
+.feed li:hover {
+    box-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+
+.feed a {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.feed li h2 {
+    background-color: rgba(0,0,0,.75);
+    padding: 2%;
+    position: absolute;
+    left: 0; top: 10%;
+}
+
+.ajax-loader {
+    background-image: url(/static/img/ajax-loader.gif);
+    display: block;
+    height: 16px;
+    float: right;
+    position: absolute;
+    right: 0; top: 0;
+    text-indent: -9999px;
+    width: 16px;
+}

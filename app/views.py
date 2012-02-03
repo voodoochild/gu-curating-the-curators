@@ -1,9 +1,10 @@
 from django.shortcuts import render
+from django.conf import settings
 from feeds.models import Story
 
 def dashboard(request):
     """Dashboard view."""
-    stories = Story.objects.filter(latest = True, source = 'Storify')
+    stories = Story.objects.filter(latest=True, source='Storify')[:settings.STORIES_PER_FEED]
     storyjson = []
     for story in stories:
         storyjson.append({
@@ -19,7 +20,7 @@ def dashboard(request):
 
     })
 
-    tweetminster_stories = Story.objects.filter(latest = True, source = 'Tweetminster')
+    tweetminster_stories = Story.objects.filter(latest=True, source='Tweetminster')[:settings.STORIES_PER_FEED]
     tweetjson = []
     for tweetstory in tweetminster_stories:
         tweetjson.append({
@@ -32,12 +33,6 @@ def dashboard(request):
     feeds.append({
         'title': 'Tweetminster',
         'stories': tweetjson
-
     })
 
-
-    context = {
-        'feeds': feeds
-    }
-
-    return render(request, 'app/dashboard.html', context)
+    return render(request, 'app/dashboard.html', {'feeds': feeds})
