@@ -78,9 +78,15 @@ class Command(BaseCommand):
                 self.save_tweetminster_story(story)
 
     def save_tweetminster_story(self, story):
+        try:
+            thumbnail =  story['embed'][0]['thumbnail_url']
+        except KeyError:
+            thumbnail = ''
+        print thumbnail
+
         new_story = Story.objects.create(key = story['_id'], title = story['title'],
                                          description = story['description'], source = "Tweetminster", permalink = story['uri'],
-                                         latest=True)
+                                         latest=True, thumbnail=thumbnail)
         new_story.save()
 
 
