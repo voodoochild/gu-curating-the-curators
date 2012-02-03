@@ -19,6 +19,22 @@ def dashboard(request):
 
     })
 
+    tweetminster_stories = Story.objects.filter(latest = True, source = 'Tweetminster')
+    tweetjson = []
+    for tweetstory in tweetminster_stories:
+        tweetjson.append({
+            'key': tweetstory.key,
+            'title': tweetstory.title,
+            'thumbnail': tweetstory.thumbnail,
+            'permalink': tweetstory.permalink
+        },)
+
+    feeds.append({
+        'title': 'Tweetminster',
+        'stories': tweetjson
+
+    })
+
 
     context = {
         'feeds': feeds
