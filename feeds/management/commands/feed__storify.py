@@ -57,7 +57,7 @@ class Command(BaseCommand):
         """
         for story in stories:
             try:
-                existing_story = Story.objects.filter(key = story['sid']).order_by('-timestamp')[0]
+                existing_story = Story.objects.filter(key = story['sid'], latest = True)[0]
                 self.check_for_updates(story, existing_story)
             except IndexError:
                 self.save_story(story)
