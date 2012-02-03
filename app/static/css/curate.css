@@ -22,12 +22,8 @@ a, a:visited, a:active, a:hover {
 
 .feed {
     float: left;
-    margin-right: 4%;
+    margin-right: 2%;
     width: 30%;
-}
-
-.feed:last-child {
-    margin-right: 0;
 }
 
 .feed header {

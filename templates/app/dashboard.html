@@ -4,209 +4,24 @@
 <header role="banner">
     <h1>Curating the Curators</h1>
 </header>
-
+{% for feed in feeds %}
+{% if feed.title and feed.stories %}
 <section class="feed">
     <header>
-        <h1>Storify</h1>
+        <h1>{{ feed.title }}</h1>
     </header>
     <ol>
-        <li data-key="4f29bb7a0421b36e076522ef" style="background-image:url(http://p.twimg.com/AkmwZP8CQAI8vXL.jpg);">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
+        {% for story in feed.stories %}
+        <li data-key="{{ story.key }}" style="background-image:url({{ story.thumbnail }});">
+            <a href="{{ story.permalink }}">
+                <h2>{{ story.title }}</h2>
             </a>
         </li>
-        <li data-key="4f29bb7a0421b36e076522ef" style="background-image:url(http://cache.blippitt.com/wp-content/uploads/2009/03/the-sun.jpg);">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
+        {% endfor %}
     </ol>
 </section>
-
-<section class="feed">
-    <header>
-        <h1>Reddit</h1>
-    </header>
-    <ol>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-    </ol>
-</section>
-
-<section class="feed">
-    <header>
-        <h1>Tweetminister</h1>
-    </header>
-    <ol>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-        <li data-key="4f29bb7a0421b36e076522ef">
-            <a href="http://storify.com/curious_scribe/egyptian-football-riots">
-                <h2>Egyptian football riots</h2>
-                <!--<p class="flexible-image"><img src="http://p.twimg.com/AkmwZP8CQAI8vXL.jpg"></p>-->
-            </a>
-        </li>
-    </ol>
-</section>
+{% endif %}
+{% endfor %}
 {% endblock content %}
 
 {% block scripts %}
