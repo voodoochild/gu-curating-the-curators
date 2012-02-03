@@ -92,7 +92,7 @@ class Command(BaseCommand):
 
     def fetch_from_content_api(self):
         """Connect to the content API, retrieve popular stories, and store."""
-        r = requests.get('http://content.guardianapis.com/search?tag=sport&page-size=%d&format=json&show-fields=all' % settings.STORIES_PER_FEED)
+        r = requests.get('http://content.guardianapis.com/search?tag=sport&page-size=50&format=json&show-fields=trailText&show-media=picture&api-key=techdev-internal')
 
         if r.status_code != 200:
             raise CommandError('content API returned a %d status code' % r.status_code)
@@ -102,21 +102,38 @@ class Command(BaseCommand):
         if len(stories) == 0:
             raise CommandError("content API didn't return any results")
 
+        self.find_ten_with_images(stories)
+
+    def find_ten_with_images(self, stories):
+        withimages = []
         for story in stories:
+            images = story['mediaAssets']
+            hasImage = False
+            for image in images:
+                if image['fields']['width'] == '460':
+                    hasImage = True
+            if hasImage:
+                withimages.append(story)
+
+
+
+        for story in withimages[:10]:
             try:
                 existing_story = Story.objects.get(key = story['id'], latest = True, source='ContentAPI')
             except Story.DoesNotExist:
                 self.save_content_api_story(story)
 
+
     def save_content_api_story(self, story):
-        try:
-            thumbnail =  story['fields']['thumbnail']
-        except KeyError:
-            thumbnail = ''
+        images = story['mediaAssets']
+        bigpicture = None
+        for image in images:
+            if image['fields']['width'] == '460':
+                bigpicture = image
 
         new_story = Story.objects.create(key = story['id'], title = story['webTitle'],
                                          description = story['fields']['trailText'], source = "ContentAPI", permalink = story['webUrl'],
-                                         latest=True, thumbnail=thumbnail)
+                                         latest=True, thumbnail=bigpicture['file'])
         new_story.save()
 
 
