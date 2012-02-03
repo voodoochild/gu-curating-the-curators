@@ -3,7 +3,7 @@ from feeds.models import Story
 
 def dashboard(request):
     """Dashboard view."""
-    stories = Story.objects.filter(latest = True)
+    stories = Story.objects.filter(latest = True, source = 'Storify')
     storyjson = []
     for story in stories:
         storyjson.append({
