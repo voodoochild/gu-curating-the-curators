@@ -7,9 +7,9 @@ from feeds.models import Story
 def storify_dummy_data(request):
     """Returns shuffled JSON data for Storify."""
     storyjson = []
-    stories = Story.objects.filter(latest=True, source='Storify')[:settings.STORIES_PER_FEED]
+    stories = Story.objects.filter(latest=True, source='Storify').order_by('-timestamp')
 
-    for story in stories:
+    for story in stories[:settings.STORIES_PER_FEED]:
         storyjson.append({
             'key': story.key,
             'title': story.title,
@@ -25,9 +25,9 @@ def storify_dummy_data(request):
 
 def tweetminster_dummy_data(request):
     storyjson = []
-    stories = Story.objects.filter(latest=True, source='Tweetminster')[:settings.STORIES_PER_FEED]
+    stories = Story.objects.filter(latest=True, source='Tweetminster').order_by('-timestamp')
 
-    for story in stories:
+    for story in stories[:settings.STORIES_PER_FEED]:
         storyjson.append({
             'key': story.key,
             'title': story.title,
@@ -43,9 +43,9 @@ def tweetminster_dummy_data(request):
 
 def contentapi_dummy_data(request):
     storyjson = []
-    stories = Story.objects.filter(latest=True, source='ContentAPI')[:settings.STORIES_PER_FEED]
+    stories = Story.objects.filter(latest=True, source='ContentAPI').order_by('-timestamp')
 
-    for story in stories:
+    for story in stories[:settings.STORIES_PER_FEED]:
         storyjson.append({
             'key': story.key,
             'title': story.title,

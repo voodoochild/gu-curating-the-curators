@@ -93,4 +93,10 @@ INSTALLED_APPS = (
     'feeds',
 )
 
-STORIES_PER_FEED = 5
+STORIES_PER_FEED = 6
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
+

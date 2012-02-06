@@ -12,3 +12,4 @@ db
 /.idea/uiDesigner.xml
 /.idea/vcs.xml
 /.idea/workspace.xml
+local_settings.py
