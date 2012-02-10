@@ -1,0 +1,5 @@
+cron:
+
+- description: Fetch the story from storify
+  url: /admin/cron/fetchStorify
+  schedule: every 1 hours
