@@ -18,7 +18,7 @@ newResult = {}
 
 if snapshot.count() == 0:
     newResult['stat'] = 'error'
-    newResult['error'] = '100: no records found with that hastag'
+    newResult['error'] = '100: no records found with that hashtag'
 else:
     newResult['stat'] = 'ok'
     newResult['result'] = simplejson.loads(snapshot[0].json)
